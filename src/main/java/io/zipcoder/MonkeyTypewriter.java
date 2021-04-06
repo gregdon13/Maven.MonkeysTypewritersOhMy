@@ -23,19 +23,31 @@ public class MonkeyTypewriter {
         // Do all of the Monkey / Thread building here
         // For each Copier(one safe and one unsafe), create and start 5 monkeys copying the introduction to
         // A Tale Of Two Cities.
-        UnsafeCopier unsafeCopier = new UnsafeCopier(introduction);
-        Runnable runnable = () -> unsafeCopier.run();
-        Thread threadOne = new Thread(runnable);
-        threadOne.start();
-        Thread threadTwo = new Thread(runnable);
-        threadTwo.start();
-        Thread threadThree = new Thread(runnable);
-        threadThree.start();
-        Thread threadFour = new Thread(runnable);
-        threadFour.start();
-        Thread threadFive = new Thread(runnable);
-        threadFive.start();
+//        UnsafeCopier unsafeCopier = new UnsafeCopier(introduction);
+//        Runnable runnable = () -> unsafeCopier.run();
+//        Thread threadOne = new Thread(runnable);
+//        Thread threadTwo = new Thread(runnable);
+//        Thread threadThree = new Thread(runnable);
+//        Thread threadFour = new Thread(runnable);
+//        Thread threadFive = new Thread(runnable);
+//        threadOne.start();
+//        threadTwo.start();
+//        threadThree.start();
+//        threadFour.start();
+//        threadFive.start();
 
+        SafeCopier safeCopier = new SafeCopier(introduction);
+        Runnable runnableSafe = () -> safeCopier.run();
+        Thread monkeyOne = new Thread(runnableSafe);
+        Thread monkeyTwo = new Thread(runnableSafe);
+        Thread monkeyThree = new Thread(runnableSafe);
+        Thread monkeyFour = new Thread(runnableSafe);
+        Thread monkeyFive = new Thread(runnableSafe);
+        monkeyOne.start();
+        monkeyTwo.start();
+        monkeyThree.start();
+        monkeyFour.start();
+        monkeyFive.start();
 
         // This wait is here because main is still a thread and we want the main method to print the finished copies
         // after enough time has passed.
@@ -46,6 +58,7 @@ public class MonkeyTypewriter {
         }
 
         // Print out the copied versions here.
-        System.out.println(unsafeCopier.copied);
+        //System.out.println(unsafeCopier.copied);
+        System.out.println(safeCopier.copied);
     }
 }
