@@ -5,25 +5,15 @@ package io.zipcoder;
  * correctly every time.  Make the run method thread safe.
  */
 public class SafeCopier extends Copier{
-    public boolean running = stringIterator.hasNext();
+    private boolean _debug = true;
 
     public SafeCopier(String toCopy) {
         super(toCopy);
     }
 
-
-
-    public void run() {
-        synchronized (stringIterator) {
-            while (stringIterator.hasNext()) {
-                stringIterator.notify();
-                copied = copied + stringIterator.next() + " ";
-                try {
-                    stringIterator.wait(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+    public synchronized void run() {
+        while (stringIterator.hasNext()) {
+            copied += stringIterator.next() + " ";
         }
     }
 }
