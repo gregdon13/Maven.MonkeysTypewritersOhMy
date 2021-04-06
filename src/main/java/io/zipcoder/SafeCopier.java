@@ -5,6 +5,7 @@ package io.zipcoder;
  * correctly every time.  Make the run method thread safe.
  */
 public class SafeCopier extends Copier{
+    public boolean running = stringIterator.hasNext();
 
     public SafeCopier(String toCopy) {
         super(toCopy);
@@ -17,11 +18,11 @@ public class SafeCopier extends Copier{
             while (stringIterator.hasNext()) {
                 stringIterator.notify();
                 copied = copied + stringIterator.next() + " ";
-            }
-            try {
-                stringIterator.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    stringIterator.wait(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
