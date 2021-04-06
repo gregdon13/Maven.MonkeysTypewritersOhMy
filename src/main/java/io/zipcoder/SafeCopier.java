@@ -10,16 +10,18 @@ public class SafeCopier extends Copier{
         super(toCopy);
     }
 
+
+
     public void run() {
         synchronized (stringIterator) {
             while (stringIterator.hasNext()) {
                 stringIterator.notify();
                 copied = copied + stringIterator.next() + " ";
-                try {
-                    stringIterator.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            }
+            try {
+                stringIterator.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
